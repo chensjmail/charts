@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>单环中心显示值方案1</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="../../../js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../js/highcharts/highcharts.src.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#container').highcharts({
+			chart:{
+				events:{
+					load:function(){
+						this.redraw();
+					},
+					redraw:function(){
+						if(!this._ring_center_text){
+							var _label= this.renderer.text('', 500, 235).attr({
+								//fill:Highcharts.getOptions().colors[0],
+								padding:10,
+								r:5,
+								zIndex:8
+							}).add();
+							this._ring_center_text= _label;
+						}
+						var _tmp= this.series[0].total;
+						// 						jQuery.each(this.series[0].points, function(index_, point_){
+						// 							// 							console.info(point_.visible + " " + point_.y + " " + _tmp);// todo:
+						// 							if(point_.visible){
+						// 								_tmp+= point_.y;
+						// 							}
+						// 							// 							console.info(_tmp.toFixed(2));// todo:
+						// 						});
+						if(!_tmp || _tmp === 0){
+							this._ring_center_text.textSetter('');
+						}else{
+							_tmp= _tmp.toFixed(2);
+							this._ring_center_text.textSetter('<span style="font-weight: bolder;font-size: 40;">' + _tmp + '</span><span style="font-weight: bolder;font-size: 10;">亿</span>');
+						}
+					}
+				}
+			},
+			title:{
+				text:'Contents of Highsofts weekly fruit delivery'
+			},
+			subtitle:{
+				text:'3D donut in Highcharts'
+			},
+			legend:{
+
+			},
+			plotOptions:{
+				pie:{
+					allowPointSelect:true,
+					cursor:'pointer',
+					dataLabels:{
+						enabled:false
+					},
+					showInLegend:true
+				}
+			},
+			legend:{
+				align:"right",
+				layout:"vertical",
+				verticalAlign:"middle",
+				labelFormat:"<div style='white-space:normal; width:50px; background-color: pink;'>{name}</div>"
+			},
+			series:[{
+				type:"pie",
+				cursor:'pointer',
+				innerSize:'100%',
+				size:'50%',
+				dataLabels:{
+					enabled:false
+				},
+				name:'Delivered amount',
+				data:[{
+					name:'Bananas',
+					y:11368.69
+				}, {
+					name:'Kiwi',
+					y:11368.69
+				}, {
+					name:'Mixed nuts',
+					y:11368.69
+				}, {
+					name:'Oranges',
+					y:11368.69
+				}, {
+					name:'Apples',
+					y:11368.69
+				}, {
+					name:'Pears',
+					y:11368.69
+				}, {
+					name:'Clementines',
+					y:11368.69
+				}, {
+					nane:'Reddish (bag)',
+					y:11368.69
+				}, {
+					name:'Grapes (bunch)',
+					y:11368.69
+				}]
+			}]
+		});
+	});
+</script>
+</head>
+<body>
+  <div id="container" style="min-width: 700px; height: 400px"></div>
+</body>
+</html>

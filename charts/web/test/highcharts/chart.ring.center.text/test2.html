@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>单环中心显示值方案2</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="../../../js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../js/highcharts/highcharts.src.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#container').highcharts({
+			chart:{
+				type:'pie' //图表类型还是pie图
+			},
+			plotOptions:{
+				pie:{
+					allowPointSelect:true,
+					cursor:'pointer',
+					innerSize:'20', //也可以配置为10%的百分比形式
+					dataLabels:{
+						enabled:true,
+						distance:-140, //数据值的距离值
+						formatter:function(){
+							if(this.point.series.xIncrement === (this.point.x + 1)){
+								return this.point.total.toFixed(2) + "";
+							}
+						},
+						style:{
+							fontSize:"50px"
+						}
+					}
+				}
+			},
+			series:[{
+				data:[['Firefox', 44.2], ['IE7', 26.6], ['IE6', 20], ['Chrome', 3.1], ['Other', 5.4]]
+			}]
+		});
+	});
+</script>
+</head>
+<body>
+  <div id="container" style="min-width: 700px; height: 400px"></div>
+</body>
+</html>

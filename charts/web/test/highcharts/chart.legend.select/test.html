@@ -1,0 +1,117 @@
+<html>
+<head>
+<title>chart Test</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="../../../js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../js/highcharts/highcharts.src.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#container').highcharts({
+			chart:{
+				type:'pie',
+				plotBackgroundColor:null,
+				plotBorderWidth:null,
+				plotShadow:false
+			},
+			colors:['#72c446', '#14adf9', '#eb7153', '#d2d3d3', '#2ec6c9', '#b6a0e1', '#f4984d', '#f13d6d', '#d67a7f', '#fab82c', '#17b0a4', '#ee5468', '#eeca5a', '#60ac62', '#5e9dec', '#665885', '#aab4bc', '#913b53', '#2570a8', '#e54646'],
+			exporting:{
+				enabled:false
+			},
+			title:{
+				text:''
+			},
+			subtitle:{
+				text:'<TODO:subtitle>'
+			},
+			tooltip:{
+				pointFormat:' <b>{point.y}</b>'
+			},
+			credits:{
+				enabled:false
+			},
+			legend:{
+				align:"right",
+				layout:"vertical",
+				verticalAlign:"middle",
+				labelFormat:"<div style='white-space:normal; width:100px;'>{name}</div>",
+				useHTML:true
+			},
+			plotOptions:{
+				pie:{
+					size:"100%",
+					allowPointSelect:true,
+					cursor:'pointer',
+					dataLabels:{
+						enabled:false,
+						distance:-5,
+
+					},
+					showInLegend:true,
+					point:{
+						events:{
+							select:function(e){
+								var _point= this;
+								_point.visible= false;
+								if(_point.series.chart.options.legend.useHTML){
+									_point.legendItem.element.onmouseout();
+								}else{
+									_point.legendGroup.element.onmouseout();
+								}
+							},
+							unselect:function(e){
+								var _point= this;
+								_point.visible= true;
+								if(_point.series.chart.options.legend.useHTML){
+									_point.legendItem.element.onmouseout();
+								}else{
+									_point.legendGroup.element.onmouseout();
+								}
+							},
+							legendItemClick:function(e){
+								var _point= this;
+								_series= _point.series;
+								_chart= _series.chart;
+								_point.select(!_point.selected);
+								console.info(_point.visible);//doto 
+								if(_point.series.chart.options.legend.useHTML){
+									_point.legendItem.element.onmouseout();
+								}else{
+									_point.legendGroup.element.onmouseout();
+								}
+								return false;
+							}
+						}
+					}
+				}
+			},
+			series:[{
+				data:[{
+					name:'个人存款按金额档次客户数（10-20万（含））',
+					y:58773
+				}, {
+					name:'个人存款按金额档次客户数（100万以上）',
+					y:8673
+				}, {
+					name:'个人存款按金额档次客户数（20-50万（含））',
+					y:48615
+				}, {
+					name:'个人存款按金额档次客户数（5-10万（含））',
+					y:66491
+				}, {
+					name:'个人存款按金额档次客户数（50-100万（含））',
+					y:15448
+				}, {
+					name:'个人存款按金额档次客户数（5万以下）',
+					y:1418617
+				}
+
+				]
+			}]
+		});
+	});
+</script>
+</head>
+<body>
+  <div id="container" style="min-width: 700px; height: 400px"></div>
+</body>
+</html>

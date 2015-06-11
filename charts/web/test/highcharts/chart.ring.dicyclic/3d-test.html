@@ -1,0 +1,238 @@
+<html>
+<head>
+<title>双环图(3D版)</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="../../../js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../js/highcharts/highcharts.src.js" type="text/javascript"></script>
+<script src="../../../js/highcharts/highcharts-3d.src.js" type="text/javascript"></script>
+<script type="text/javascript">
+	function get_ring_similar_series_point(current_series_point_){
+		var _tmp= current_series_point_.series.userOptions.id;
+		if(!_tmp){
+			var _error_info= "未正确设置环图series id选项，设置的格式为： {... , series:[{id:'xxxx-1' , ...},{id:xxxx-2 , ...}}]";
+			// 			console.error(_error_info);//todo:测试
+			throw _error_info;
+		}
+		_tmp= _tmp.split("-");
+		var _similar_id= _tmp[0] + "-" + (_tmp[1] === "1" ? "2" : "1");
+		var _similar_series= current_series_point_.series.chart.get(_similar_id);
+		var _similar_point= null;
+		jQuery.each(_similar_series.data, function(index_, point_){
+			if(point_.name === current_series_point_.name){
+				_similar_point= point_;
+				return false;
+			}
+		});
+		return _similar_point;
+	}
+
+	$(function(){
+		$('#container').highcharts({
+			"chart":{
+				options3d:{
+					enabled:true,
+					alpha:45
+				},
+				"plotShadow":true,
+				"zoomType":"xy",
+				events:{
+					load:function(){
+						//让plotOptions.pie.allowPointSelect选项失效
+						jQuery.each(this.series, function(index_, serie_){
+							serie_.options.allowPointSelect= false;
+						});
+						//重写legend 鼠标事件
+						var _useHTML= this.legend.options.useHTML;
+						var _this= this;
+						jQuery.each(_this.legend.getAllItems(), function(index_, item_){
+							var _similar_point= get_ring_similar_series_point(item_);
+
+							var _target= (_useHTML ? item_.legendItem : item_.legendGroup);
+							var _native_mouseover_fn= _target.element.onmouseover;
+							var _native_mouseout_fn= _target.element.onmouseout;
+							_target.element.onmouseover= function(){
+								_native_mouseover_fn.apply(this, arguments);
+								_similar_point.setState('hover');
+							};
+							_target.element.onmouseout= function(){
+								_native_mouseout_fn.apply(this, arguments);
+								_similar_point.setState();
+							};
+						});
+					}
+				}
+			},
+			"colors":["#2ec7c9", "#ffa200", "#1b83ab", "#41d7e5", "#ad6394", "#ff83a0", "#e0433a", "#f97f46", "#f6c471", "#e8a39b", "#da49b2", "#b6764f", "#8fbf82", "#5eb8bf", "#d1f16a", "#42c889", "#2abd2e", "#7062b1", "#dcb4d0", "#1b83ab"],
+			"exporting":{
+				"enabled":false
+			},
+			"title":{
+				"text":""
+			},
+			"subtitle":{
+				"text":"<b>外环：</b>比上日增量（亿）&nbsp;&nbsp;&nbsp;&nbsp;<b>内环：</b>比上月增量（亿）",
+				"verticalAlign":"bottom",
+				"align":"left",
+				"useHTML":true,
+				"y":10
+			},
+			"series":[{
+				id:"ring-1",
+				"name":"比上日增量（亿）",
+				"type":"pie",
+				"innerSize":"80%",
+				"size":"100%",
+                depth: 45,
+				"showInLegend":true,
+				"dataLabels":{
+					"enabled":false
+				},
+				"data":[{
+					"y":38.06,
+					"name":"总行<br/>"
+				}, {
+					"y":73.28,
+					"name":"重庆分行<br/>"
+				}, {
+					"y":59.91,
+					"name":"南京分行<br/>"
+				}, {
+					"y":387.52,
+					"name":"成都分行<br/>"
+				}, {
+					"y":98.86,
+					"name":"西安分行<br/>"
+				}, {
+					"y":121.57,
+					"name":"苏州分行<br/>"
+				}, {
+					"y":53.72,
+					"name":"济南分行<br/>"
+				}, {
+					"y":159.56,
+					"name":"青岛分行<br/>"
+				}, {
+					"y":78.77,
+					"name":"烟台分行<br/>"
+				}, {
+					"y":325.63,
+					"name":"杭州分行<br/>"
+				}, {
+					"y":34.77,
+					"name":"宁波分行<br/>"
+				}, {
+					"y":91.1,
+					"name":"温州分行<br/>"
+				}, {
+					"y":42.73,
+					"name":"福州分行<br/>"
+				}, {
+					"y":49.43,
+					"name":"昆明分行<br/>"
+				}]
+			}, {
+				id:"ring-2",
+				"name":"比上月增量（亿）",
+				"type":"pie",
+				"innerSize":"20%",
+				"size":"40%",
+                depth: 45,
+				"dataLabels":{
+					"enabled":false
+				},
+				"data":[{
+					"y":57.92,
+					"name":"总行<br/>"
+				}, {
+					"y":204.03,
+					"name":"重庆分行<br/>"
+				}, {
+					"y":93.34,
+					"name":"南京分行<br/>"
+				}, {
+					"y":3.12,
+					"name":"成都分行<br/>"
+				}, {
+					"y":2.54,
+					"name":"西安分行<br/>"
+				}, {
+					"y":172.02,
+					"name":"苏州分行<br/>"
+				}, {
+					"y":32.15,
+					"name":"济南分行<br/>"
+				}, {
+					"y":86.86,
+					"name":"青岛分行<br/>"
+				}, {
+					"y":279.79,
+					"name":"烟台分行<br/>"
+				}, {
+					"y":313.35,
+					"name":"杭州分行<br/>"
+				}, {
+					"y":59.36,
+					"name":"宁波分行<br/>"
+				}, {
+					"y":28.02,
+					"name":"温州分行<br/>"
+				}, {
+					"y":24.72,
+					"name":"福州分行<br/>"
+				}, {
+					"y":51.6,
+					"name":"昆明分行<br/>"
+				}]
+			}],
+			"credits":{
+				"enabled":false
+			},
+			"legend":{
+				"align":"right",
+				"layout":"vertical",
+				"verticalAlign":"middle",
+				"labelFormat":"<div style='white-space:normal; width:50px; background-color: pink;'>{name}</div>",
+				"useHTML":false
+			},
+			"plotOptions":{
+				"pie":{
+					"allowPointSelect":true,
+					"size":"100%",
+					"cursor":"pointer",
+					"showInLegend":false,
+					point:{
+						events:{
+							mouseOver:function(){
+								var _similar_point= get_ring_similar_series_point(this);
+								_similar_point.setState('hover');
+							},
+							mouseOut:function(){
+								var _similar_point= get_ring_similar_series_point(this);
+								_similar_point.setState();
+							},
+							legendItemClick:function(){
+								var _similar_point= get_ring_similar_series_point(this);
+								if(_similar_point.setVisible){
+									_similar_point.setVisible();
+								}
+							},
+							click:function(){
+								var _selected= !this.options.selected && !this.options.selected;
+								this.select(_selected, false);
+								var _similar_point= get_ring_similar_series_point(this);
+								if(_similar_point.select){
+									_similar_point.select(_selected, true);
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+	});
+</script>
+</head>
+<body>
+  <div id="container" style="min-width: 700px; height: 400px"></div>
+</body>
+</html>

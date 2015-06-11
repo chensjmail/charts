@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>load 重设series选项</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="../../../js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../js/highcharts/highcharts.src.js" type="text/javascript"></script>
+<script src="../../../js/highcharts/highcharts-more.src.js" type="text/javascript"></script>
+<script src="../../../js/highcharts/highchartsUtils.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#container').highcharts({
+			credits:{
+				enabled:false
+			},
+			colors:['#9178c9', '#44b0cd', '#b3a623', '#c02c4e', '#56b841', '#ff83a0', '#e0433a', '#f97f46', '#f6c471', '#e8a39b', '#da49b2', '#b6764f', '#8fbf82', '#5eb8bf', '#d1f16a', '#42c889', '#2abd2e', '#7062b1', '#dcb4d0', '#1b83ab'],
+			chart:{
+				type:'bubble',
+				backgroundColor:'rgba(0, 0, 0, 0)',//透明背景
+				plotBorderWidth:1,
+				zoomType:'xy',
+				events:{
+					load:function(){
+						jQuery.each(this.series, function(index_, serie_){
+							serie_.update({
+								marker:{
+									fillColor:{
+										radialGradient:{
+											cx:0.4,
+											cy:0.3,
+											r:0.7
+										},
+										stops:[[0, 'rgba(255,255,255,0.5)'], [1, Highcharts.Color(serie_.color).setOpacity(0.5).get('rgba')]]
+									}
+								}
+							}, true);
+						});
+					}
+				}
+			},
+			title:{
+				text:''
+			},
+			legend:{
+				verticalAlign:'top',
+			},
+			xAxis:{
+				categories:['总行', '青岛分行', '烟台分行', '济南分行', '江苏分行'],
+				gridLineWidth:1,
+				startOnTick:false,
+				endOnTick:false
+			},
+			yAxis:{
+				title:'',
+				startOnTick:false,
+				endOnTick:false
+			},
+			tooltip:{
+				headerFormat:'<b>{point.key} : {point.y}</b><br>',
+				pointFormat:'<span style="color:{series.color}">\u25CF</span> {series.name} : {point.z}'
+			},
+			series:[{
+				name:'比上日',
+				data:[[81, 63], [5, 89], [50, 73], [22, 14], [24, 200]]
+			}, {
+				name:'比上月',
+				data:[[38, 20], [18, 1], [93, 55], [2, 90], [76, 22]]
+			}]
+		});
+	});
+</script>
+</head>
+<body>
+  <div id="container" style="min-width: 700px; height: 400px"></div>
+</body>
+</html>

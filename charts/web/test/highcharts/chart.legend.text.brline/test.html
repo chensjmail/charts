@@ -1,0 +1,219 @@
+<html>
+<head>
+<title>标识标签文本换行</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script src="../../../js/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../js/highcharts/highcharts.src.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#container').highcharts({
+			chart:{
+				renderTo:'',
+				type:'pie',
+				plotBackgroundColor:null,
+				plotBorderWidth:null,
+				plotShadow:false
+			},
+			colors:['#72c446', '#14adf9', '#eb7153', '#d2d3d3', '#2ec6c9', '#b6a0e1', '#f4984d', '#f13d6d', '#d67a7f', '#fab82c', '#17b0a4', '#ee5468', '#eeca5a', '#60ac62', '#5e9dec', '#665885', '#aab4bc', '#913b53', '#2570a8', '#e54646'],
+			exporting:{
+				enabled:false
+			},
+			title:{
+				text:''
+			},
+			subtitle:{
+				text:'<TODO:subtitle>'
+			},
+			tooltip:{
+				pointFormat:' <b>{point.y}</b>'
+			},
+			credits:{
+				enabled:false
+			},
+			legend:{
+				align:"right",
+				layout:"vertical",
+				verticalAlign:"middle",
+				useHTML:false,
+				// itemWidth:140,// DOTO 可设置固定宽度
+				labelFormatter:function(){
+					var _MAX_LENGTH= 10;
+					var _labelVal= this.name;
+					var _splitName= [];
+					while(_labelVal.length > _MAX_LENGTH){
+						_splitName[_splitName.length]= _labelVal.substr(0, _MAX_LENGTH);
+						_labelVal= _labelVal.substring(_MAX_LENGTH);
+					}
+					if(_labelVal.length > 0){
+						_splitName[_splitName.length]= _labelVal;
+					}
+					return _splitName.join("<br/>");
+				}
+			},
+			plotOptions:{
+				pie:{
+					size:"100%",
+					allowPointSelect:true,
+					cursor:'pointer',
+					dataLabels:{
+						enabled:false,
+						distance:-5
+					},
+					showInLegend:true,
+					point:{
+						events:{
+							select:function(e){
+								console.info(1);
+							}
+						}
+					}
+				}
+			},
+			series:[{
+				data:[{
+					name:'保函保证金保函保证金保函保证金1',
+					y:2.47
+				}, {
+					name:'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz',
+					y:54.61
+				}, {
+					name:'123456789012345678901234567890',
+					y:312.95
+				}, {
+					name:'商业汇票保贴保证金1承兑保证金2衍生金融工具保证金3',
+					y:0.45
+				}, {
+					name:'承兑保证金',
+					y:445.18
+				}, {
+					name:'衍生金融工具保证金',
+					y:1.71
+				}, {
+					name:'远期结售汇保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金11',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金22',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金33',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金44',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金55',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金66',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金77',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金88',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}, {
+					name:'999远期结售汇保证金99保函保证金保函保证金保函保证金',
+					y:0.04
+				}
+
+				]
+			}]
+		});
+	});
+</script>
+</head>
+<body>
+  <div id="container" style="min-width: 700px; height: 400px"></div>
+</body>
+</html>
