@@ -3,17 +3,10 @@
 <head>
 <title>普通使用方式</title>
 <meta charset="utf-8">
+<script type="text/javascript" src="../../js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/echarts/echarts-all.js"></script>
-
-</head>
-<body>
-	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-	<div id="main" style="height: 400px"></div>
-</body>
-</html>
-
 <script type="text/javascript">
-	(function(this_){
+	$(function(){
 		var option= {
 			tooltip:{
 				show:true
@@ -37,8 +30,12 @@
 		// echarts 是 echarts-all.js 的全局变量 
 		var myChart= echarts.init(document.getElementById('main'));
 		myChart.setOption(option);
-		myChart.on("force_layout_end", function(param){
-			alert(1);
-		});
-	})(this);
+	});
 </script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height: 400px"></div>
+</body>
+</html>
+
