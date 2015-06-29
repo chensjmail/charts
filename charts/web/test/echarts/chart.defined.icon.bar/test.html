@@ -1,0 +1,220 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>自定义图标显示柱图</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var option= {
+			tooltip:{
+				show:false
+			},
+			xAxis:[{
+				show:false,
+				type:'category',
+				splitLine:{
+					show:false
+				},
+				data:['招行', '平安', '浙商', '浦发', '恒丰', '光大', '华夏', '中信', '兴业', '民生', '渤海', '广发']
+			}],
+			yAxis:[{
+				show:false,
+				type:'value'
+			}],
+			series:[{
+				name:'辅助',
+				type:'bar',
+				//stack:'总量',
+				itemStyle:{
+					normal:{
+						barBorderColor:'rgba(0,0,0,0)',
+						color:'rgba(0,0,0,0)'
+					},
+					emphasis:{
+						barBorderColor:'rgba(0,0,0,0)',
+						color:'rgba(0,0,0,0)'
+					}
+				},
+				data:[100, 0],
+				markPoint:{
+					itemStyle:{
+						normal:{
+							label:{
+								show:true,
+								position:'bottom',
+								formatter:function(params_){
+									return params_.name.replace(/\{a\}/ig, params_.data.yAxis);
+								},
+								textStyle:{
+									fontSize:14
+								}
+							}
+						},
+						emphasis:{
+							label:{
+								show:false
+							}
+						}
+					},
+					data:[{
+						xAxis:0,
+						yAxis:80,//显示在刻度上的值
+						name:'招行: {a} 亿\n比前1位还差:xxx',
+						symbolSize:20,
+						symbol:'image://./icon/招行.png'
+					}, {
+						xAxis:1,//显示在x轴刻度上的值
+						yAxis:90,//显示在y轴刻度上的值
+						name:'平安',
+						symbolSize:20,
+						symbol:'image://./icon/平安.png'
+					}, {
+						xAxis:2,//显示在x轴刻度上的值
+						yAxis:65,//显示在y轴刻度上的值
+						name:'浙商',
+						symbolSize:20,
+						symbol:'image://./icon/浙商.png'
+					}, {
+						xAxis:3,//显示在x轴刻度上的值
+						yAxis:49,//显示在y轴刻度上的值
+						name:'浦发',
+						symbolSize:20,
+						symbol:'image://./icon/浦发.png'
+					}, {
+						xAxis:4,//显示在x轴刻度上的值
+						yAxis:53,//显示在y轴刻度上的值
+						name:'恒丰',
+						symbolSize:20,
+						symbol:'image://./icon/恒丰.png'
+					}, {
+						xAxis:5,//显示在x轴刻度上的值
+						yAxis:78,//显示在y轴刻度上的值
+						name:'光大',
+						symbolSize:20,
+						symbol:'image://./icon/光大.png'
+					}, {
+						xAxis:6,//显示在x轴刻度上的值
+						yAxis:42,//显示在y轴刻度上的值
+						name:'华夏',
+						symbolSize:20,
+						symbol:'image://./icon/华夏.png'
+					}, {
+						xAxis:7,//显示在x轴刻度上的值
+						yAxis:29,//显示在y轴刻度上的值
+						name:'中信',
+						symbolSize:20,
+						symbol:'image://./icon/中信.png'
+					}, {
+						xAxis:8,//显示在x轴刻度上的值
+						yAxis:45,//显示在y轴刻度上的值
+						name:'兴业',
+						symbolSize:20,
+						symbol:'image://./icon/兴业.png'
+					}, {
+						xAxis:9,//显示在x轴刻度上的值
+						yAxis:58,//显示在y轴刻度上的值
+						name:'民生',
+						symbolSize:20,
+						symbol:'image://./icon/民生.png'
+					}, {
+						xAxis:10,//显示在x轴刻度上的值
+						yAxis:61,//显示在y轴刻度上的值
+						name:'渤海',
+						symbolSize:20,
+						symbol:'image://./icon/渤海.png'
+					}, {
+						xAxis:11,//显示在x轴刻度上的值
+						yAxis:13,//显示在y轴刻度上的值
+						name:'广发',
+						symbolSize:20,
+						symbol:'image://./icon/广发.png'
+					}]
+				},
+				markLine:{
+					clickable:false,
+					//symbol:'circle',
+					symbolSize:[0, 4],
+					itemStyle:{
+						normal:{
+							label:{
+								show:true,
+								position:'right',
+								formatter:function(params_){
+									return params_.data.name.replace(/\{a\}/ig, params_.data.yAxis);
+								},
+							},
+							color:'#dc143c',
+							lineStyle:{
+								type:'solid',
+								width:2
+							}
+						}
+					},
+					data:[[{
+						itemStyle:{
+							normal:{
+								color:'red',
+								lineStyle:{
+									color:'red'
+								}
+							}
+						},
+						name:'第三梯队\n{a}亿',
+						xAxis:-1,
+						yAxis:30
+					}, {
+						xAxis:12,
+						yAxis:30,
+					}], [{
+						itemStyle:{
+							normal:{
+								color:'yellow',
+								lineStyle:{
+									color:'yellow'
+								}
+							}
+						},
+						name:'第二梯队\n{a}亿',
+						xAxis:-1,
+						yAxis:60
+					}, {
+						xAxis:12,
+						yAxis:60,
+					}], [{
+						itemStyle:{
+							normal:{
+								color:'green',
+								lineStyle:{
+									color:'green'
+								}
+							}
+						},
+						name:'第一梯队\n{a}亿',
+						xAxis:-1,
+						yAxis:90
+					}, {
+						xAxis:12,
+						yAxis:90,
+					}]]
+				}
+			}, {
+				name:'数量',
+				type:'bar',
+				data:[0, 0, 0, 0, 0, 0]
+			}]
+		};
+
+		// echarts 是 echarts-all.js 的全局变量 
+		var myChart= echarts.init(document.getElementById('main'));
+		myChart.setOption(option);
+		myChart.setTheme('macarons');
+	});
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height: 400px"></div>
+</body>
+</html>

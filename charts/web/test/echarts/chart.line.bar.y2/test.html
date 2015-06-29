@@ -1,0 +1,63 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>柱线双Y轴图</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var option= {
+			tooltip:{
+				trigger:'axis'
+			},
+			calculable:true,
+			legend:{
+				data:['各项存款', '比上月', '比年初']
+			},
+			xAxis:[{
+				type:'category',
+				data:['招行', '浦发', '中信', '兴业', '民生', '光大', '华夏', '广发', '平安', '恒丰', '浙商', '渤海']
+			}],
+			yAxis:[{
+				splitArea:{
+					show:true
+				},
+				type:'value',
+				name:'余额(亿)'
+			}, {
+				splitArea:{
+					show:true
+				},
+				type:'value',
+				name:'增幅(亿)'
+			}],
+			series:[{
+				name:'各项存款',
+				type:'bar',
+				yAxisIndex:0,
+				data:[260, 590, 900, 264, 287, 707, 1756, 1822, 487, 188, 600, 230]
+			}, {
+				name:'比上月',
+				type:'line',
+				yAxisIndex:1,
+				data:[-20, 22, -33, 45, 63, 102, 203, 234, 230, 165, 120, -62]
+			}, {
+				name:'比年初',
+				type:'line',
+				yAxisIndex:1,
+				data:[20, 49, 70, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 64, 33]
+			}]
+		};
+		// echarts 是 echarts-all.js 的全局变量 
+		var myChart= echarts.init(document.getElementById('main'));
+		myChart.setOption(option);
+		myChart.setTheme('macarons');
+	});
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height: 400px"></div>
+</body>
+</html>

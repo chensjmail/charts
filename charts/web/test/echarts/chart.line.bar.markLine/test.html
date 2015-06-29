@@ -1,0 +1,86 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>柱线加标准线图</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var option= {
+			tooltip:{
+				show:true,
+				trigger:'axis',
+			},
+			calculable:true,
+			legend:{
+				data:['资产利润率(ROA)', '增长率']
+			},
+			xAxis:[{
+				type:'category',
+				data:['招行', '浦发', '中信', '兴业', '民生', '光大', '华夏', '广发', '平安', '恒丰', '浙商', '渤海']
+			}],
+			yAxis:[{
+				type:'value',
+				name:'',
+				axisLabel:{
+					formatter:'{value} %'
+				}
+			}, {
+				type:'value',
+				name:'',
+				axisLabel:{
+					formatter:'{value} %'
+				}
+			}],
+			series:[{
+				name:'资产利润率(ROA)',
+				type:'bar',
+				data:[1.60, 0.90, 0.70, 0.90, 0.80, 1.40, 1.10, 1.50, 1.00, 1.40, 1.20, 0.70, 0.90],
+				markLine:{
+					clickable:false,
+					//symbol:'circle',
+					symbolSize:[2, 4],
+					itemStyle:{
+						normal:{
+							label:{
+								show:true,
+								position:'left',
+								formatter:'{c}%'
+							},
+							color:'#dc143c',
+							lineStyle:{
+								type:'solid',
+								width:2
+							}
+						}
+					},
+					data:[[{
+						name:'同业均值(%)',
+						value:1.10,
+						xAxis:-1,
+						yAxis:1.1
+					}, {
+						xAxis:12,
+						yAxis:1.1,
+					}]]
+				}
+			}, {
+				name:'增长率',
+				type:'line',
+				yAxisIndex:1,
+				data:[17.20, 21.90, 10.20, 17.40, 12.30, 10.30, 23.00, 23.80, 14.30, 18.80, 15.30, 16.70]
+			}]
+		};
+		// echarts 是 echarts-all.js 的全局变量 
+		var myChart= echarts.init(document.getElementById('main'));
+		myChart.setOption(option);
+		myChart.setTheme('macarons');
+	});
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height: 400px"></div>
+</body>
+</html>

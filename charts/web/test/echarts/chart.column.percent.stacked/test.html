@@ -1,0 +1,93 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>百分比柱堆积图</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var option= {
+			legend:{
+				selectedMode:true,
+				data:['贷款利息收入', '手续费及佣金净收入', '非利息收入']
+			},
+			calculable:true,
+			xAxis:[{
+				type:'category',
+				data:['招行', '浦发', '中信', '兴业', '民生', '光大', '华夏', '广发', '平安', '恒丰', '浙商', '渤海']
+			}],
+			yAxis:[{
+				type:'value',
+				min:0,
+				max:100,
+				axisLabel:{
+					formatter:'{value} %'
+				}
+			}],
+			series:[{
+				name:'贷款利息收入',
+				type:'bar',
+				stack:'sum',
+				itemStyle:{
+					normal:{
+						barBorderRadius:0,
+						label:{
+							show:true,
+							position:'inside',
+							formatter:'{c} %'
+						}
+					}
+				},
+				data:[58, 61, 60, 42, 56, 49]
+			}, {
+				name:'手续费及佣金净收入',
+				type:'bar',
+				stack:'sum',
+				itemStyle:{
+					normal:{
+						//color:'rgba(193,35,43,0.5)',
+						barBorderRadius:0,
+						label:{
+							show:true,
+							position:'inside',
+							formatter:function(p){
+								return p.value > 0 ? (p.value + '%') : '';
+							}
+						}
+					}
+				},
+				data:[39, 19, 30, 33, 23, 15]
+			}, {
+				name:'非利息收入',
+				type:'bar',
+				stack:'sum',
+				itemStyle:{
+					normal:{
+						barBorderRadius:0,
+						label:{
+							show:true,
+							position:'top',
+							formatter:'{c} %',
+							textStyle:{
+								color:'#E87C25'
+							}
+						}
+					}
+				},
+				data:[3, 20, 10, 25, 21, 36]
+			}]
+		};
+
+		// echarts 是 echarts-all.js 的全局变量 
+		var myChart= echarts.init(document.getElementById('main'));
+		myChart.setOption(option);
+		myChart.setTheme('macarons');
+	});
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height: 400px"></div>
+</body>
+</html>

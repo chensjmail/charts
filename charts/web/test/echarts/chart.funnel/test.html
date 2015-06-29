@@ -1,0 +1,52 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>漏斗图</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var option = {
+			    title : {
+			        text: '漏斗图',
+			        subtext: '纯属虚构'
+			    },
+			    legend: {
+			        data : ['展现','点击','访问','咨询','订单']
+			    },
+			    calculable : true,
+			    series : [
+			        {
+			            name:'金字塔',
+			            type:'funnel',
+			            sort : 'ascending',
+			            itemStyle: {
+			                normal: {
+			                    // color: 各异,
+			                    label: {
+			                        position: 'left'
+			                    }
+			                }
+			            },
+			            data:[
+			                {value:60, name:'访问'},
+			                {value:40, name:'咨询'},
+			                {value:20, name:'订单'},
+			                {value:80, name:'点击'},
+			                {value:100, name:'展现'}
+			            ]
+			        }
+			    ]
+			};
+		// echarts 是 echarts-all.js 的全局变量 
+		var myChart= echarts.init(document.getElementById('main'));
+		myChart.setOption(option);
+	});
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height: 400px"></div>
+</body>
+</html>
