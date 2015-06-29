@@ -19,6 +19,9 @@
 				data:["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
 			}],
 			yAxis:[{
+				splitArea:{
+					show:true
+				},
 				type:'value'
 			}],
 			series:[{
@@ -30,6 +33,7 @@
 		// echarts 是 echarts-all.js 的全局变量 
 		var myChart= echarts.init(document.getElementById('main'));
 		myChart.setOption(option);
+		myChart.setTheme('macarons');
 	});
 </script>
 </head>
