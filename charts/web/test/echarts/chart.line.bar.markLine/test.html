@@ -10,7 +10,7 @@
 		var option= {
 			tooltip:{
 				show:true,
-				trigger:'axis',
+				trigger:'axis'
 			},
 			calculable:true,
 			legend:{
@@ -44,7 +44,7 @@
 					itemStyle:{
 						normal:{
 							label:{
-								show:true,
+								show:false,
 								position:'left',
 								formatter:'{c}%'
 							},
@@ -56,7 +56,12 @@
 						}
 					},
 					data:[[{
-						name:'同业均值(%)',
+						tooltip:{
+							show:true,
+							trigger:'value',
+							formatter:'{b}:{c}%'
+						},
+						name:'同业均值',
 						value:1.10,
 						xAxis:-1,
 						yAxis:1.1
