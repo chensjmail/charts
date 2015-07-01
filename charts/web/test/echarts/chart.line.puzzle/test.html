@@ -1,0 +1,113 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>多图拼接显示图(不建议使用此类方案)</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var option= {
+			legend:{
+				show:false,
+				data:[]
+			},
+			grid:{
+				y:0,
+				y2:0
+			},
+			xAxis:[{
+				show:false,
+				type:'category',
+				boundaryGap:false,
+				splitLine:{
+					show:false
+				},
+				data:['2014年2季度', '2014年3季度', '2014年4季度', '2015年1季度', '2015年2季度']
+			}],
+			yAxis:[{
+				type:'value',
+				splitNumber:2,
+				boundaryGap:[10, 10],
+				axisLine:{
+					show:true
+				},
+				splitLine:{
+					show:false
+				},
+				axisLabel:{
+					show:false
+				}
+			}],
+			series:[{
+				name:'',
+				type:'line',
+				data:[11, 11, 15, 13, 12],
+				itemStyle:{
+					normal:{
+						color:'red'
+					}
+				},
+				markPoint:{
+					data:[{
+						symbol:'circle',
+						symbolSize:2,
+						symbolRotate:0,
+						xAxis:0,
+						yAxis:11,// 显示在刻度上的值
+						itemStyle:{
+							normal:{
+								color:'red',
+								label:{
+									show:true,
+									position:'left',
+									formatter:'招行',
+									textStyle:{
+										color:'red'
+									}
+								}
+							}
+						}
+					}]
+				}
+			}]
+		};
+		function setOption(div_, option_, dataName_, color_, datas_){
+			option_.series[0].data= datas_;
+			option_.series[0].markPoint.data[0].itemStyle.normal.label.formatter= dataName_;
+			option_.series[0].itemStyle.normal.color= color_;
+			option_.series[0].markPoint.data[0].itemStyle.normal.color= option.series[0].itemStyle.normal.color;
+			option_.series[0].markPoint.data[0].itemStyle.normal.label.textStyle.color= option.series[0].itemStyle.normal.color;
+			option_.series[0].markPoint.data[0].yAxis= option_.series[0].data[0];
+			var mychart= echarts.init(document.getElementById(div_));
+			mychart.setOption(option_);
+			mychart.setTheme('macarons');
+		}
+		function setNewOption(div_, option_, dataName_, color_, datas_){
+			jQuery(document.body).append('<div id="'+div_+'" style="height: 50px"></div>');
+			setOption(div_, option_, dataName_, color_, datas_);
+		}
+		function setNewLastOption(div_, option_, dataName_, color_, datas_){
+			jQuery(document.body).append('<div id="'+div_+'" style="height: 110px"></div>');
+			option.xAxis[0].show= true;
+			option.grid.y2= 60;
+			setOption(div_, option_, dataName_, color_, datas_);
+		}
+		setNewOption('main0', option, '招行', '#9A7FD1', [11, 11, 15, 13, 12]);
+		setNewOption('main1', option, '浦发', '#03A1A3', [0, 0, 0, 0, 0]);
+		setNewOption('main2', option, '中信', '#DC69AA', [50, 9, 80, 20, 95]);
+		setNewOption('main3', option, '兴业', '#956F6C', [80, 0, 50, 7, 30]);
+		setNewOption('main4', option, '民生', '#99B756', [5, 23, 15, 66, 23]);
+		setNewOption('main5', option, '光大', '#E5CE06', [34, 15, 98, 12, 65]);
+		setNewOption('main6', option, '华夏', '#8A96B1', [56, 63, 67, 24, 24]);
+		setNewOption('main71', option, '广发', '#D7787E', [75, 24, 42, 54, 63]);
+		setNewOption('main8', option, '平安', '#FFB579', [12, 67, 33, 76, 34]);
+		setNewOption('main9', option, '恒丰', '#54AFEF', [45, 83, 73, 93, 12]);
+		setNewOption('main10', option, '浙商', '#B5A1DE', [25, 23, 65, 43, 64]);
+		setNewLastOption('main11', option, '渤海', '#30C7C9', [33, 67, 45, 14, 95]);
+	});
+</script>
+</head>
+<body>
+</body>
+</html>
