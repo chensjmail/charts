@@ -36,7 +36,7 @@
 		})();
 
 		var option= {
-			backgroundColor:'#fff',
+			backgroundColor:'#000',//画布背景
 			title:{
 				text:'市场份额',
 				subtext:'',
@@ -64,7 +64,11 @@
 			},
 			grid:{
 				backgroundColor:'#ccc',
-				borderWidth:0
+				borderWidth:0,
+				y:50,
+				y2:50,
+				x:80,
+				x2:80
 			},
 			xAxis:[{
 				type:'category',
@@ -93,14 +97,14 @@
 					}
 				},
 				data:dataArray
-			}, {
+			}, {//环
 				name:'遮罩',
 				type:'pie',
 				clickable:false,
 				tooltip:{
 					show:false
 				},
-				radius:[100, 180],
+				radius:[80, 130],//[内半径，外半径]
 				itemStyle:{
 					normal:{
 						color:'#fff',
@@ -119,18 +123,19 @@
 					value:100,
 					name:'直接访问'
 				}]
-			}, {
+			}, {//环
 				name:'占比',
 				type:'pie',
 				clickable:false,
 				clockWise:true,
-				radius:[110, 125],
+				radius:[90, 105],//[内半径，外半径]
 				data:[{
 					itemStyle:{
 						normal:{
 							label:{
+								distance:0.45,
 								position:'inside',
-								formatter:'\n{b} : {c}\n\n( {d}% )',
+								formatter:'\n{b} : {c}  ( {d}% )',
 								textStyle:{
 									fontSize:15,
 									baseline:'top',
@@ -183,7 +188,7 @@
 				symbolSize:10
 			}
 		}
-		
+
 		//动态显示新值
 		function update(params){
 			changePieSeries(params);
@@ -206,6 +211,6 @@
 </head>
 <body>
 	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-	<div id="main" style="width: 378px; height: 378px;"></div>
+	<div id="main" style="width: 354px; height: 260px;"></div>
 </body>
 </html>
