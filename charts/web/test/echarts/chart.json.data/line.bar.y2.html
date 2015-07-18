@@ -1,0 +1,62 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>柱线双Y轴图</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var option= (function(){
+			var _report= eval('({"yTitles":["本期","比上月,比年初"],"categories":["中信银行","光大银行","兴业银行","华夏银行","平安银行","广发银行","恒丰银行","招商银行","民生银行","浙商银行","浦发银行","渤海银行"],"series":[{"name":"本期","data":[24964.48,16819.49,18918.22,12684.95,13441.95,10150.46,3527.8,28237.57,22863.71,2955.02,22469.99,3520.77],"type":"bar","axisIndex":0},{"name":"比上月","data":[559.66,280.52,-1495.36,451.23,306.48,93.54,-1124.33,528.38,807.13,-508.04,-1925.23,72.83],"type":"line","axisIndex":1},{"name":"比年初","data":[24964.48,16819.49,18918.22,12684.95,13441.95,10150.46,3527.8,28237.57,22863.71,2955.02,22469.99,3520.77],"type":"line","axisIndex":1}]})');
+			var _option= {
+				tooltip:{
+					trigger:'axis'
+				},
+				calculable:true,
+				legend:{
+					data:[]
+				},
+				xAxis:[{
+					type:'category',
+					data:_report.categories
+				}],
+				yAxis:[],
+				series:[]
+			};
+
+			for(var i= 0;i < _report.yTitles.length;i++){
+				_option.yAxis[i]= {
+					splitArea:{
+						show:true
+					},
+					type:'value',
+					name:_report.yTitles[i]
+				};
+			}
+
+			for(var i= 0;i < _report.series.length;i++){
+				var _series= _report.series[i];
+				_option.legend.data[i]= _series.name;
+				_option.series[i]= {
+					name:_series.name,
+					type:_series.type,
+					yAxisIndex:_series.axisIndex,
+					data:_series.data
+				};
+			}
+
+			return _option;
+		})();
+		// echarts 是 echarts-all.js 的全局变量 
+		var myChart= echarts.init(document.getElementById('main'));
+		myChart.setOption(option);
+		myChart.setTheme('macarons');
+	});
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height: 400px"></div>
+</body>
+</html>
