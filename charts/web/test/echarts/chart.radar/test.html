@@ -22,14 +22,16 @@
 				data:['活期存款', '定期存款', '保证金存款', '结构性存款']
 			},
 			polar:[{
-				axisLabel:{
-					show:false
-				},
 				type:'circle',//雷达盘为圆形
 				splitNumber:8,//设置雷达内刻度数
 				indicator:[{
 					text:'招行',
-					max:1200
+					max:1200,
+					axisLabel:{
+						show:true,
+						//必须要写这个属性,不然会报错
+						textStyle:{}
+					},
 				}, {
 					text:'浦发',
 					max:1100
