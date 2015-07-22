@@ -92,7 +92,7 @@
 			option_.series[0].itemStyle.normal.color= color_;
 			option_.series[0].markPoint.data[0].itemStyle.normal.color= option.series[0].itemStyle.normal.color;
 			option_.series[0].markPoint.data[0].itemStyle.normal.label.textStyle.color= option.series[0].itemStyle.normal.color;
-			option_.series[0].markPoint.data[0].yAxis= option_.series[0].data[0];
+			option_.series[0].markPoint.data[0].yAxis= option_.series[0].data[0].value;
 			var mychart= echarts.init(document.getElementById(div_));
 			mychart.setOption(option_);
 			mychart.setTheme('macarons');
