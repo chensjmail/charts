@@ -42,7 +42,12 @@
 			series:[{
 				name:'',
 				type:'line',
-				data:[11, 11, 15, 13, 12],
+				data:[11, {
+					symbol:'circle',
+					symbolSize:1,
+					symbolRotate:0,
+					value:18
+				}, 15, 13, 12],
 				itemStyle:{
 					normal:{
 						color:'red'
@@ -73,7 +78,16 @@
 			}]
 		};
 		function setOption(div_, option_, dataName_, color_, datas_){
-			option_.series[0].data= datas_;
+			var _datas_= [];
+			jQuery.each(datas_, function(index_, value_){
+				_datas_[_datas_.length]= {
+					symbol:'circle',
+					symbolSize:1,
+					symbolRotate:0,
+					value:value_
+				};
+			});
+			option_.series[0].data= _datas_;
 			option_.series[0].markPoint.data[0].itemStyle.normal.label.formatter= dataName_;
 			option_.series[0].itemStyle.normal.color= color_;
 			option_.series[0].markPoint.data[0].itemStyle.normal.color= option.series[0].itemStyle.normal.color;
