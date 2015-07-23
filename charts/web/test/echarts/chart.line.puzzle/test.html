@@ -28,7 +28,7 @@
 			yAxis:[{
 				type:'value',
 				splitNumber:2,
-				boundaryGap:[10, 10],
+				boundaryGap:[0, 0],
 				axisLine:{
 					show:true
 				},
@@ -98,11 +98,11 @@
 			mychart.setTheme('macarons');
 		}
 		function setNewOption(div_, option_, dataName_, color_, datas_){
-			jQuery(document.body).append('<div id="'+div_+'" style="height: 50px"></div>');
+			jQuery('#main').append('<div id="'+div_+'" style="height: 50px"></div>');
 			setOption(div_, option_, dataName_, color_, datas_);
 		}
 		function setNewLastOption(div_, option_, dataName_, color_, datas_){
-			jQuery(document.body).append('<div id="'+div_+'" style="height: 110px"></div>');
+			jQuery('#main').append('<div id="'+div_+'" style="height: 110px"></div>');
 			option.xAxis[0].show= true;
 			option.grid.y2= 60;
 			setOption(div_, option_, dataName_, color_, datas_);
@@ -123,5 +123,7 @@
 </script>
 </head>
 <body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="width: 754px; height: 860px;"></div>
 </body>
 </html>
