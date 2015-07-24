@@ -23,6 +23,7 @@
 			}],
 			yAxis:[{
 				type:'value',
+				splitNumber:200,
 				boundaryGap:[0, 0],
 				axisLine:{
 					show:true
@@ -37,6 +38,10 @@
 			series:[]
 		};
 
+		var _step_base_value_= 0;
+		var _step_= 100;
+		var _max_= 0;
+		var _min_= 0;
 		function setOption(option_, dataName_, color_, datas_){
 			var _series_= {
 				name:'',
@@ -71,22 +76,32 @@
 				}
 			};
 
-			// 			var _datas_= [];
-			// 			jQuery.each(datas_, function(index_, value_){
-			// 				_datas_[_datas_.length]= {
-			// 					symbol:'circle',
-			// 					symbolSize:1,
-			// 					symbolRotate:0,
-			// 					value:value_
-			// 				};
-			// 			});
+			var _max_value_= 0;
+			var _min_value_= 0;
+			var _datas_= [];
+			var _value_= 0;
+			jQuery.each(datas_, function(index_, value_){
+				_max_value_= Math.max(_max_value_, value_);
+				_min_value_= Math.min(_min_value_, value_);
+				_value_= (value_ + _step_base_value_);
+				_datas_[_datas_.length]= {
+					symbol:'circle',
+					symbolSize:1,
+					symbolRotate:0,
+					value:_value_,
+					rvalue:value_
+				};
+				_max_= Math.max(_max_, _value_);
+				_min_= Math.min(_min_, _value_);
+			});
+			_step_base_value_+= (_max_value_ + _step_);
 
-			_series_.data= datas_;
+			_series_.data= _datas_;
 			_series_.markPoint.data[0].itemStyle.normal.label.formatter= dataName_;
 			_series_.itemStyle.normal.color= color_;
 			_series_.markPoint.data[0].itemStyle.normal.color= _series_.itemStyle.normal.color;
 			_series_.markPoint.data[0].itemStyle.normal.label.textStyle.color= _series_.itemStyle.normal.color;
-			_series_.markPoint.data[0].yAxis= datas_[0];
+			_series_.markPoint.data[0].yAxis= _datas_[0].value;
 
 			option_.series[option_.series.length]= _series_;
 		}
@@ -104,6 +119,8 @@
 		setOption(_option, '浙商', echarts.config.color[10], [25, 23, 65, 43, 64]);
 		setOption(_option, '渤海', echarts.config.color[11], [33, 67, 45, 14, 95]);
 
+		_option.yAxis[0].max= _max_;
+		_option.yAxis[0].min= _min_;
 		var mychart= echarts.init(document.getElementById('main'));
 		mychart.setOption(_option);
 		mychart.setTheme('macarons');
