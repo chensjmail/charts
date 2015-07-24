@@ -1,0 +1,180 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>多图联动</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var _titles= ['2014年2季度', '2014年3季度', '2014年4季度', '2015年1季度', '2015年2季度'];
+		var _datas= [['招行', 11, 11, 15, 13, 12], ['浦发', 0, 0, 0, 1, 0], ['中信', 50, 9, 80, 20, 95], ['兴业', 80, 0, 50, 7, 30], ['民生', 5, 23, 15, 66, 23], ['光大', 34, 15, 98, 12, 65], ['华夏', 56, 63, 67, 24, 24], ['广发', 75, 24, 42, 54, 63], ['平安', 12, 67, 33, 76, 34], ['恒丰', 45, 83, 73, 93, 12], ['浙商', 25, 23, 65, 43, 64], ['渤海', 33, 67, 45, 14, 95]];
+		var _renderTo= 'main';
+		var _renderTo_container_= jQuery('#' + _renderTo);
+		_renderTo_container_.empty();// 清空
+		var _category_= [];
+		jQuery.each(_titles, function(index_, ele_){
+			if(!ele_ || ele_ === 'null'){
+				return;
+			}
+			_category_[_category_.length]= ele_;
+		});
+		var _option= (function(){
+			return {
+				legend:{
+					show:false,
+					data:[]
+				},
+				grid:{
+					backgroundColor:'#fff',
+					y:5,
+					y2:6
+				},
+				tooltip:{
+					trigger:'axis',
+					showDelay:0, // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+				},
+				xAxis:[{
+					show:true,
+					type:'category',
+					boundaryGap:false,
+					splitLine:{
+						show:false
+					},
+					axisTick:{
+						show:false
+					},
+					data:_category_
+				}],
+				yAxis:[{
+					type:'value',
+					boundaryGap:[0, 0],
+					axisLine:{
+						show:true
+					},
+					axisTick:{
+						show:false
+					},
+					splitLine:{
+						show:false
+					},
+					axisLabel:{
+						show:false
+					}
+				}],
+				series:[{
+					name:'',
+					type:'line',
+					data:[],
+					itemStyle:{
+						normal:{
+							color:''
+						}
+					},
+					markPoint:{
+						tooltip:{
+							show:true,
+							trigger:'axis',
+							showDelay:0, // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+						},
+						data:[{
+							symbol:'circle',
+							symbolSize:2,
+							symbolRotate:0,
+							xAxis:0,
+							yAxis:-1,// 显示在刻度上的值
+							itemStyle:{
+								normal:{
+									color:'',
+									label:{
+										show:true,
+										position:'left',
+										formatter:'',
+										textStyle:{
+											color:''
+										}
+									}
+								}
+							}
+						}]
+					}
+				}]
+			};
+		});
+
+		var _charts_= [];
+		function setOption(div_, option_, dataName_, color_, datas_){
+			var _datas_= [];
+			var _max_value_= 0;
+			var _min_value_;
+			jQuery.each(datas_, function(index_, value_){
+				if(index_ == 0){
+					_min_value_= value_;
+				}
+				_max_value_= Math.max(_max_value_, value_);
+				_min_value_= Math.min(_min_value_, value_);
+				_datas_[_datas_.length]= {
+					symbol:'circle',
+					symbolSize:1,
+					symbolRotate:0,
+					value:value_
+				};
+			});
+			option_.yAxis[0].max= _max_value_;
+			option_.yAxis[0].min= _min_value_;
+			option_.series[0].data= _datas_;
+			option_.series[0].markPoint.data[0].itemStyle.normal.label.formatter= dataName_;
+			option_.series[0].itemStyle.normal.color= color_;
+			option_.series[0].markPoint.data[0].itemStyle.normal.color= option_.series[0].itemStyle.normal.color;
+			option_.series[0].markPoint.data[0].itemStyle.normal.label.textStyle.color= option_.series[0].itemStyle.normal.color;
+			option_.series[0].markPoint.data[0].yAxis= option_.series[0].data[0].value;
+			var mychart= echarts.init(document.getElementById(div_));
+			mychart.setOption(option_);
+			mychart.setTheme('macarons');
+			_charts_[_charts_.length]= mychart;
+		}
+
+		var _head_height_= 20;// 第一个title预留, 
+		var _footer_height_= 30;//是为最后一个图显示x轴坐标预留
+		var _average_height_= (_renderTo_container_.height() - _head_height_ - _footer_height_) / _datas.length;
+		function setNewOption(div_, option_, dataName_, color_, datas_, index_){
+			var _c_height_= _average_height_;
+			if(index_ == 0){
+				option_.grid.y= _head_height_;
+				_c_height_+= _head_height_;
+			}else if(index_ == _datas.length - 1){
+				option_.xAxis[0].show= true;
+				option_.xAxis[0].axisTick.show= true;
+				option_.grid.y2= _footer_height_;
+				_c_height_+= _footer_height_;
+			}
+			_renderTo_container_.append('<div id="' + div_ + '" style="height: ' + _c_height_ + 'px; width:100%; "></div>');
+			setOption(div_, option_, dataName_, color_, datas_);
+		}
+
+		jQuery.each(_datas, function(index_, ele_){
+			var _org_= ele_[1];
+			var _data_= [];
+			jQuery.each(ele_, function(data_index_, data_ele_){
+				if(data_index_ < 1){
+					return;
+				}
+				_data_[_data_.length]= Number(data_ele_);
+			});
+			setNewOption(_renderTo + '_' + index_, _option(), ele_[0], echarts.config.color[index_], _data_, index_);
+		});
+
+		jQuery.each(_charts_, function(index_, chart_){//联动关联
+			var _connect_charts_= _charts_.concat();
+			_connect_charts_.splice(index_, 1);//删除自己
+			chart_.connect(_connect_charts_);
+		});
+
+	});
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="width: 854px; height: 660px;"></div>
+</body>
+</html>
