@@ -153,7 +153,7 @@
 		}
 
 		jQuery.each(_datas, function(index_, ele_){
-			var _org_= ele_[1];
+			var _org_= ele_[0];
 			var _data_= [];
 			jQuery.each(ele_, function(data_index_, data_ele_){
 				if(data_index_ < 1){
@@ -161,7 +161,7 @@
 				}
 				_data_[_data_.length]= Number(data_ele_);
 			});
-			setNewOption(_renderTo + '_' + index_, _option(), ele_[0], echarts.config.color[index_], _data_, index_);
+			setNewOption(_renderTo + '_' + index_, _option(), _org_, echarts.config.color[index_], _data_, index_);
 		});
 
 		jQuery.each(_charts_, function(index_, chart_){//联动关联
