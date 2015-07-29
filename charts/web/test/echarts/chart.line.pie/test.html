@@ -19,7 +19,10 @@
 			gap= Math.round((max - min));
 			var nd= [{
 				value:data[0] + gap,
-				symbol:'none'
+				symbol:'none',
+				tooltip:{
+					show:false
+				}
 			}];
 			for(var i= 0,l= data.length;i < l;i++){
 				if(data[i] == max){
@@ -30,13 +33,16 @@
 			}
 			nd.push({
 				value:data[data.length - 1] + gap,
-				symbol:'none'
+				symbol:'none',
+				tooltip:{
+					show:false
+				}
 			});
 			return nd;
 		})();
 
 		var option= {
-			backgroundColor:'#000',//画布背景
+			backgroundColor:'rgba(0,0,0,0)',//画布背景
 			title:{
 				text:'市场份额',
 				subtext:'',
@@ -57,6 +63,7 @@
 						update(params);
 						return params.seriesName + '<br/>' + params.name + ' : ' + params.value;
 					}
+					return null;
 				},
 				axisPointer:{
 					type:'none'
@@ -209,7 +216,7 @@
 	});
 </script>
 </head>
-<body>
+<body style="background-color: #000;">
 	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
 	<div id="main" style="width: 354px; height: 260px;"></div>
 </body>
