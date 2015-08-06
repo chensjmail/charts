@@ -13,7 +13,28 @@
 				subtext:''
 			},
 			tooltip:{
-				trigger:'axis'
+				trigger:'axis',
+				formatter:function(params_){
+					var _res_= [];
+					var _name_= '';
+					for(var i= 0;i < params_.length;i++){
+						if(i == 0){
+							_name_= params_[i][3];
+							_res_[_res_.length]= _name_ + '<br />';
+						}
+						_res_[_res_.length]= params_[i][1] + ':';
+						_res_[_res_.length]= params_[i][2] + '<br />';
+					}
+					// 					jQuery.each(this.chart.radar.option.polar[0].indicator, function(index_, indicator_){
+					// 						if(indicator_.text == _name_){
+					// 							indicator_.axisLabel.show= true;
+					// 						}else{
+					// 							indicator_.axisLabel.show= false;
+					// 						}
+					// 					});
+					// 					this.chart.radar.myChart.setOption(this.chart.radar.option);
+					return _res_.join('');
+				}
 			},
 			legend:{
 				orient:'horizontal',
@@ -22,11 +43,13 @@
 				data:['活期存款', '定期存款', '保证金存款', '结构性存款']
 			},
 			polar:[{
-				type:'circle',//雷达盘为圆形
-				splitNumber:8,//设置雷达内刻度数
+				type:'circle',//雷达盘为圆形,
+				splitNumber:10,//设置雷达内刻度数
+				scale:true,
 				indicator:[{
 					text:'招行',
-					max:1200,
+					max:1105,
+					min:20,
 					axisLabel:{
 						show:true,
 						//必须要写这个属性,不然会报错
@@ -34,37 +57,48 @@
 					}
 				}, {
 					text:'浦发',
-					max:1100
+					max:1105,
+					min:20
 				}, {
 					text:'中信',
-					max:1000
+					max:1105,
+					min:20
 				}, {
 					text:'兴业',
-					max:900
+					max:1105,
+					min:20
 				}, {
 					text:'民生',
-					max:800
+					max:1105,
+					min:20
 				}, {
 					text:'光大',
-					max:700
+					max:1200,
+					min:20
 				}, {
 					text:'华夏',
-					max:600
+					max:1105,
+					min:20
 				}, {
 					text:'广发',
-					max:500
+					max:1105,
+					min:20
 				}, {
 					text:'平安',
-					max:400
+					max:1105,
+					min:20
 				}, {
 					text:'恒丰',
-					max:300
+					max:1105,
+					min:20
 				}, {
 					text:'浙商',
-					max:200
+					max:1105,
+					min:20
 				}, {
 					text:'渤海',
-					max:100
+					max:1105,
+					min:20
 				}]
 			}],
 			calculable:true,
