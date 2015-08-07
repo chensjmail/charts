@@ -126,8 +126,10 @@
 					value:value_
 				};
 			});
-			option_.yAxis[0].max= _max_value_;
-			option_.yAxis[0].min= _min_value_;
+			if(_max_value_ > _min_value_){//最大值大于最小值，否则无法显示
+				option_.yAxis[0].max= _max_value_;
+				option_.yAxis[0].min= _min_value_;
+			}
 			option_.series[0].data= _datas_;
 			option_.series[0].markPoint.data[0].itemStyle.normal.label.formatter= dataName_;
 			option_.series[0].itemStyle.normal.color= color_;
