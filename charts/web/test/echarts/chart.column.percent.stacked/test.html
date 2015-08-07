@@ -12,6 +12,10 @@
 				selectedMode:true,
 				data:['贷款利息收入', '手续费及佣金净收入', '非利息收入']
 			},
+			tooltip:{
+				show:true,
+				trigger:'axis'
+			},
 			calculable:true,
 			xAxis:[{
 				type:'category',
@@ -31,7 +35,7 @@
 				stack:'sum',
 				itemStyle:{
 					normal:{
-						barBorderRadius:0,
+						barBorderRadius:10,
 						label:{
 							show:true,
 							position:'inside',
@@ -47,7 +51,7 @@
 				itemStyle:{
 					normal:{
 						//color:'rgba(193,35,43,0.5)',
-						barBorderRadius:0,
+						barBorderRadius:15,
 						label:{
 							show:true,
 							position:'inside',
@@ -64,7 +68,7 @@
 				stack:'sum',
 				itemStyle:{
 					normal:{
-						barBorderRadius:0,
+						barBorderRadius:15,
 						label:{
 							show:true,
 							position:'top',
