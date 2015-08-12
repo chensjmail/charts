@@ -29,7 +29,20 @@
 					maxIndex= i;
 				}
 				total+= data[i];
-				nd.push(data[i] + gap);
+				var _data_= {
+					symbol:'emptyCircle',
+					value:data[i] + gap,
+					rvalue:data[i],
+					tooltip:{},
+					itemStyle:{
+						normal:{}
+					}
+				};
+				if(i == 3){//特殊处理某个点
+					_data_.itemStyle.normal.color= '#ffd700';
+					_data_.symbol= 'star';
+				}
+				nd.push(_data_);
 			}
 			nd.push({
 				value:data[data.length - 1] + gap,
@@ -61,7 +74,7 @@
 						return '总量 : ' + total + '<br/>' + params.name + ' : ' + params.value + '<br/>' + '占比 : ' + params.percent + '%';
 					}else if(params.name != '占位'){
 						update(params);
-						return params.seriesName + '<br/>' + params.name + ' : ' + params.value;
+						return params.seriesName + '<br/>' + params.name + ' : ' + params.data.rvalue;
 					}
 					return null;
 				},
@@ -176,7 +189,8 @@
 
 		//改变比率值
 		function changePieSeries(params){
-			var curData= params.value - gap;
+			var _value_= params.data.value;
+			var curData= _value_ - gap;
 			option.series[2].startAngle= -90 + (curData / total * 360) / 2;
 			option.series[2].data[0].name= params.name;
 			option.series[2].data[0].value= curData;
@@ -184,16 +198,14 @@
 
 			for(var i= 1,l= option.series[0].data.length - 1;i < l;i++){
 				if(option.series[0].data[i].symbol){
-					option.series[0].data[i].symbol= 'emptyCircle';
+					// 					option.series[0].data[i].symbol= 'emptyCircle';
 					option.series[0].data[i].symbolSize= 6;
 				}
 			}
-			option.series[0].data[params.dataIndex]= {
-				name:params.name,
-				value:params.value,
-				symbol:'emptyDiamond',
-				symbolSize:10
-			}
+			var _oldData_= option.series[0].data[params.dataIndex];
+			// 			_oldData_.symbol= 'emptyDiamond';
+			_oldData_.symbolSize= 10;
+			option.series[0].data[params.dataIndex]= _oldData_;
 		}
 
 		//动态显示新值
@@ -206,7 +218,7 @@
 		//默认第一次显示的值
 		changePieSeries({
 			name:option.xAxis[0].data[maxIndex + 1],
-			value:option.series[0].data[maxIndex + 1],
+			data:option.series[0].data[maxIndex + 1],
 			dataIndex:maxIndex + 1
 		});
 
