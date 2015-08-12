@@ -36,20 +36,32 @@
 				axisPointer:{ // 坐标轴指示器，坐标轴触发有效
 					type:'shadow' // 默认为直线，可选为：'line' | 'shadow'
 				},
-				formatter:'{b}<br/>{a0}:{c0}%<br/>{a2}:{c2}%<br/>{a4}:{c4}%<br/>{a6}:{c6}%'
+				formatter:function(params_){
+					var _stra_= [params_[0][1]];
+
+					jQuery.each(params_, function(index_, param_){
+						if(index_ % 2 == 1){
+							return;
+						}
+						_stra_[_stra_.length]= '<br>' + param_[0] + ':' + param_[2];
+					});
+					return _stra_.join('');
+				}
 			},
 			legend:{
-				y:55,
-				itemGap:document.getElementById('main').offsetWidth / 8,
-				data:['GML', 'PYP', 'WTC', 'ZTW']
+				//y:55,
+				//itemGap:document.getElementById('main').offsetWidth / 8,
+				data:[{
+					name:'GML'
+				}, 'PYP', 'WTC', 'ZTW']
 			},
 			grid:{
-				y:80,
-				y2:30
+				y:50,
+				y2:50
 			},
 			xAxis:[{
 				type:'value',
-				position:'top',
+				position:'bottom',
 				splitLine:{
 					show:false
 				},
@@ -67,55 +79,195 @@
 			series:[{
 				name:'GML',
 				type:'bar',
-				stack:'总量',
+				stack:'sum',
 				itemStyle:dataStyle,
-				data:[38, 50, 33, 72]
+				data:[38, 50, 33, 72],
+				markPoint:{
+					tooltip:{
+						show:false,
+						trigger:'axis',
+					},
+					data:[{
+						//symbol:'none',
+						symbolSize:0,
+						//symbolRotate:0,
+						xAxis:50,
+						yAxis:-100,// 显示在刻度上的值
+						itemStyle:{
+							normal:{
+								label:{
+									show:true,
+									position:'bottom',
+									formatter:'GML',
+									textStyle:{
+										color:'auto',
+										fontSize:16,
+										fontWeight:'bold'
+									}
+								}
+							},
+							emphasis:{
+								label:{
+									show:false
+								}
+							}
+						}
+					}]
+				}
 			}, {
 				name:'GML',
 				type:'bar',
-				stack:'总量',
+				stack:'sum',
 				itemStyle:placeHoledStyle,
 				data:[62, 50, 67, 28]
 			}, {
 				name:'PYP',
 				type:'bar',
-				stack:'总量',
+				stack:'sum',
 				itemStyle:dataStyle,
-				data:[61, 41, 42, 30]
+				data:[61, 41, 42, 30],
+				markPoint:{
+					tooltip:{
+						show:false,
+						trigger:'axis',
+					},
+					data:[{
+						//symbol:'none',
+						symbolSize:0,
+						//symbolRotate:0,
+						xAxis:150,
+						yAxis:-100,// 显示在刻度上的值
+						itemStyle:{
+							normal:{
+								label:{
+									show:true,
+									position:'bottom',
+									formatter:'PYP',
+									textStyle:{
+										color:'auto',
+										fontSize:16,
+										fontWeight:'bold'
+									}
+								}
+							},
+							emphasis:{
+								label:{
+									show:false
+								}
+							}
+						}
+					}]
+				}
 			}, {
 				name:'PYP',
 				type:'bar',
-				stack:'总量',
+				stack:'sum',
 				itemStyle:placeHoledStyle,
 				data:[39, 59, 58, 70]
 			}, {
 				name:'WTC',
 				type:'bar',
-				stack:'总量',
+				stack:'sum',
 				itemStyle:dataStyle,
-				data:[37, 35, 44, 60]
+				data:[37, 35, 44, 60],
+				markPoint:{
+					tooltip:{
+						show:false,
+						trigger:'axis',
+					},
+					data:[{
+						//symbol:'none',
+						symbolSize:0,
+						//symbolRotate:0,
+						xAxis:250,
+						yAxis:-100,// 显示在刻度上的值
+						itemStyle:{
+							normal:{
+								label:{
+									show:true,
+									position:'bottom',
+									formatter:'WTC',
+									textStyle:{
+										color:'auto',
+										fontSize:16,
+										fontWeight:'bold'
+									}
+								}
+							},
+							emphasis:{
+								label:{
+									show:false
+								}
+							}
+						}
+					}]
+				}
 			}, {
 				name:'WTC',
 				type:'bar',
-				stack:'总量',
+				stack:'sum',
 				itemStyle:placeHoledStyle,
 				data:[63, 65, 56, 40]
 			}, {
 				name:'ZTW',
 				type:'bar',
-				stack:'总量',
+				stack:'sum',
 				itemStyle:dataStyle,
-				data:[71, 50, 31, 39]
+				data:[71, 50, 31, 39],
+				markPoint:{
+					tooltip:{
+						show:false,
+						trigger:'axis',
+					},
+					data:[{
+						//symbol:'none',
+						symbolSize:0,
+						//symbolRotate:0,
+						xAxis:350,
+						yAxis:-100,// 显示在刻度上的值
+						itemStyle:{
+							normal:{
+								label:{
+									show:true,
+									position:'bottom',
+									formatter:'ZTW',
+									textStyle:{
+										color:'auto',
+										fontSize:16,
+										fontWeight:'bold'
+									}
+								}
+							},
+							emphasis:{
+								label:{
+									show:false
+								}
+							}
+						}
+					}]
+				}
 			}, {
 				name:'ZTW',
 				type:'bar',
-				stack:'总量',
+				stack:'sum',
 				itemStyle:placeHoledStyle,
 				data:[29, 50, 69, 61]
 			}]
 		};
 		// echarts 是 echarts-all.js 的全局变量 
 		var myChart= echarts.init(document.getElementById('main'));
+		myChart.on(echarts.config.EVENT.LEGEND_SELECTED, function(param){
+			var selected= param.selected;
+			var _option_= this.getOption();
+			var _showIndex_= 0;
+			jQuery.each(_option_.series, function(index_, series_){
+				if(index_ % 2 == 0 && param.selected[series_.name]){
+					series_.markPoint.data[0].xAxis= (_showIndex_ * 100 + 50);
+					_showIndex_++;
+				}
+			});
+			this.setOption(_option_);
+		});
 		myChart.setOption(option);
 	});
 </script>
