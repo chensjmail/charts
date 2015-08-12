@@ -40,7 +40,14 @@
 				orient:'horizontal',
 				x:'center',
 				y:'bottom',
-				data:['活期存款', '定期存款', '保证金存款', '结构性存款']
+				formatter:function(text_){
+					if(text_.length > 8){
+						text_= text_.substring(0, 8);
+						text_+= '...';
+					}
+					return text_;
+				},
+				data:['活期存款', '定存期存存存dd存存存款', '保证金存款', '结构性存款']
 			},
 			polar:[{
 				type:'circle',//雷达盘为圆形,
@@ -111,7 +118,7 @@
 				}, {
 					symbol:'circle',
 					value:[1005, 1020, 904, 880, 799, 465, 235, 432, 232, 112, 101, 20],
-					name:'定期存款'
+					name:'定存期存存存dd存存存款'
 				}, {
 					symbol:'circle',
 					value:[1015, 930, 560, 697, 768, 654, 335, 124, 343, 221, 174, 45],
