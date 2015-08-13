@@ -1,0 +1,62 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>中国地图联动图</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		option= {
+			tooltip:{
+				trigger:'item',
+				formatter:'{b}'
+			},
+			series:[{
+				name:'中国',
+				type:'map',
+				mapType:'china',
+				selectedMode:'single',
+				itemStyle:{
+					normal:{
+						label:{
+							show:true
+						}
+					},
+					emphasis:{
+						label:{
+							show:true
+						}
+					}
+				},
+				data:[{
+					name:'广东',
+					selected:true
+				}]
+			}]
+		};
+
+		// echarts 是 echarts-all.js 的全局变量 
+		var myChart= echarts.init(document.getElementById('main'));
+
+		myChart.on(echarts.config.EVENT.MAP_SELECTED, function(param){
+			var selected= param.selected;
+			var str= '当前选择： ';
+			for( var p in selected){
+				if(selected[p]){
+					str+= p + ' ';
+				}
+			}
+			alert(str);
+		});
+		
+		myChart.setOption(option);
+		myChart.setTheme('macarons');
+	});
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height: 400px"></div>
+</body>
+</html>
