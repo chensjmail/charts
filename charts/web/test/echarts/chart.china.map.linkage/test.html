@@ -7,7 +7,7 @@
 <script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
 <script type="text/javascript">
 	$(function(){
-		option= {
+		var option= {
 			tooltip:{
 				trigger:'item',
 				formatter:'{b}'
@@ -16,6 +16,7 @@
 				name:'中国',
 				type:'map',
 				mapType:'china',
+				roam:true,
 				selectedMode:'single',
 				itemStyle:{
 					normal:{
@@ -49,7 +50,7 @@
 			}
 			alert(str);
 		});
-		
+
 		myChart.setOption(option);
 		myChart.setTheme('macarons');
 	});
