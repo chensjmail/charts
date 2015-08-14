@@ -13,9 +13,13 @@
 				subtext:''
 			},
 			tooltip:{
-				trigger:'item',
+				trigger:'axis',
 				formatter:function(params_){
 					var _res_= [];
+					/**
+					<pre>trigger:'axis'
+						</pre>
+					 **/
 					var _name_= '';
 					for(var i= 0;i < params_.length;i++){
 						if(i == 0){
@@ -25,6 +29,24 @@
 						_res_[_res_.length]= params_[i][1] + ':';
 						_res_[_res_.length]= params_[i][2] + '<br />';
 					}
+					/**
+					<pre>trigger:'item'
+					_res_[_res_.length]= params_.name + '<br />';
+					if(jQuery.isArray(params_.indicator)){
+					var _series_= params_.series.data;
+					for(var i= 0;i < params_.indicator.length;i++){
+						_res_[_res_.length]= params_.indicator[i].text + ':';
+						_res_[_res_.length]= params_.data.value[i] + '<br />';
+					}
+					}else{
+					var _series_= params_.series.data;
+					for(var i= 0;i < _series_.length;i++){
+						_res_[_res_.length]= _series_[i].name + ':';
+						_res_[_res_.length]= _series_[i].value[params_.indicator] + '<br />';
+					}
+					}
+					</pre>
+					 **/
 					// 					jQuery.each(this.chart.radar.option.polar[0].indicator, function(index_, indicator_){
 					// 						if(indicator_.text == _name_){
 					// 							indicator_.axisLabel.show= true;
@@ -47,7 +69,7 @@
 					}
 					return text_;
 				},
-				data:['活期存款', '定存期存存存dd存存存款', '保证金存款', '结构性存款']
+				data:['活期存款', '定期存款', '保证金存款', '结构性存款']
 			},
 			polar:[{
 				type:'circle',//雷达盘为圆形,
@@ -118,7 +140,7 @@
 				}, {
 					symbol:'circle',
 					value:[800, 666, 444, 666, 799, 465, 535, 532, 532, 512, 501, 20],
-					name:'定存期存存存dd存存存款'
+					name:'定期存款'
 				}, {
 					symbol:'circle',
 					value:[900, 555, 333, 777, 768, 654, 535, 524, 543, 521, 574, 545],
