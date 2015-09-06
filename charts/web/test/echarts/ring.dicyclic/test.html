@@ -1,0 +1,114 @@
+<!DOCTYPE HTML">
+<html>
+<head>
+<title>双环图</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="../../../js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var option= {
+			tooltip:{
+				trigger:'item',
+				formatter:"{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend:{
+				orient:'vertical',
+				x:'left',
+				data:['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+			},
+			calculable:false,
+			series:[{
+				name:'访问来源',
+				type:'pie',
+				radius:['70%', '90%'],
+				itemStyle:{
+					normal:{
+						label:{
+							show:false
+						},
+						labelLine:{
+							show:false
+						}
+					},
+					emphasis:{
+						label:{
+							show:true,
+							position:'center',
+							textStyle:{
+								fontSize:'30',
+								fontWeight:'bold'
+							}
+						}
+					}
+				},
+				data:[{
+					value:335,
+					name:'直接访问'
+				}, {
+					value:310,
+					name:'邮件营销'
+				}, {
+					value:234,
+					name:'联盟广告'
+				}, {
+					value:135,
+					name:'视频广告'
+				}, {
+					value:1548,
+					name:'搜索引擎'
+				}]
+			}, {
+				name:'访问来源',
+				type:'pie',
+				radius:['40%', '60%'],
+				itemStyle:{
+					normal:{
+						label:{
+							show:false
+						},
+						labelLine:{
+							show:false
+						}
+					},
+					emphasis:{
+						label:{
+							show:true,
+							position:'center',
+							formatter:"{c}\n {d}%",
+							textStyle:{
+								fontSize:'30',
+								fontWeight:'bold'
+							}
+						}
+					}
+				},
+				data:[{
+					value:35,
+					name:'直接访问'
+				}, {
+					value:310,
+					name:'邮件营销'
+				}, {
+					value:234,
+					name:'联盟广告'
+				}, {
+					value:135,
+					name:'视频广告'
+				}, {
+					value:1548,
+					name:'搜索引擎'
+				}]
+			}]
+		};
+		// echarts 是 echarts-all.js 的全局变量 
+		var myChart= echarts.init(document.getElementById('main'));
+		myChart.setOption(option);
+	});
+</script>
+</head>
+<body>
+	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<div id="main" style="height: 400px"></div>
+</body>
+</html>
